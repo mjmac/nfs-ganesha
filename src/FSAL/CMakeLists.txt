@@ -34,3 +34,7 @@ endif(USE_FSAL_VFS)
 if(USE_FSAL_GLUSTER)
   add_subdirectory(FSAL_GLUSTER)
 endif(USE_FSAL_GLUSTER)
+
+if(USE_FSAL_DAOSFS)
+  add_subdirectory(FSAL_DAOSFS)
+endif(USE_FSAL_DAOSFS)
