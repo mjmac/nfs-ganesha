@@ -247,15 +247,15 @@ static fsal_status_t create_export(struct fsal_module *module_in,
 		 "DAOSFS module export %s.",
 		 op_ctx->ctx_export->fullpath);
 
-	rc = DaosFileSystemGetAttr(export->fs->root_ptr, &st);
-	if (rc < 0)
-		return daosfs2fsal_error(rc);
-
 	rc = construct_handle(export, export->fs->root_ptr, &st, &handle);
 	if (rc < 0) {
 		status = daosfs2fsal_error(rc);
 		goto error;
 	}
+
+	rc = DaosFileSystemGetAttr(handle->node_handle, &st);
+	if (rc < 0)
+		return daosfs2fsal_error(rc);
 
 	op_ctx->fsal_export = &export->export;
 

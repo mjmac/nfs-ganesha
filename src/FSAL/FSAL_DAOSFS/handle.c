@@ -76,7 +76,7 @@ static fsal_status_t lookup_int(struct fsal_obj_handle *dir_hdl,
 	if (rc < 0)
 		return daosfs2fsal_error(rc);
 
-	rc = DaosFileSystemGetAttr(nh->node_ptr, &st);
+	rc = DaosFileSystemGetAttr(nh, &st);
 	if (rc < 0)
 		return daosfs2fsal_error(rc);
 
@@ -321,7 +321,7 @@ static fsal_status_t getattrs(struct fsal_obj_handle *obj_hdl,
 	LogFullDebug(COMPONENT_FSAL,
 		"%s enter obj_hdl %p", __func__, obj_hdl);
 
-	rc = DaosFileSystemGetAttr(handle->node_handle->node_ptr, &st);
+	rc = DaosFileSystemGetAttr(handle->node_handle, &st);
 	if (rc < 0) {
 		if (attrs->request_mask & ATTR_RDATTR_ERR) {
 			/* Caller asked for error to be visible. */
@@ -778,7 +778,7 @@ fsal_status_t daosfs_fsal_open2(struct fsal_obj_handle *obj_hdl,
 
 		if (createmode >= FSAL_EXCLUSIVE || truncated) {
 			/* refresh attributes */
-			rc = DaosFileSystemGetAttr(handle->node_handle->node_ptr, &st);
+			rc = DaosFileSystemGetAttr(handle->node_handle, &st);
 			if (rc < 0) {
 				status = daosfs2fsal_error(rc);
 			} else {

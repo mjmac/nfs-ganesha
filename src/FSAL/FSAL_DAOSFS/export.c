@@ -92,7 +92,7 @@ static fsal_status_t lookup_path(struct fsal_export *export_pub,
 		return daosfs2fsal_error(rc);
 
 	/* get Unix attrs */
-	rc = DaosFileSystemGetAttr(nh->node_ptr, &st);
+	rc = DaosFileSystemGetAttr(nh, &st);
 	if (rc < 0) {
 		return daosfs2fsal_error(rc);
 	}
@@ -187,7 +187,7 @@ static fsal_status_t create_handle(struct fsal_export *export_pub,
 	if (rc < 0)
 		return daosfs2fsal_error(-ESTALE);
 
-	rc = DaosFileSystemGetAttr(nh->node_ptr, &st);
+	rc = DaosFileSystemGetAttr(nh, &st);
 	if (rc < 0)
 		return daosfs2fsal_error(rc);
 
